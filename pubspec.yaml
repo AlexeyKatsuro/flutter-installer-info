@@ -1,20 +1,22 @@
 name: installer_info
 description: Returns information about the method used to install your app.
-version: 0.7.0
+version: 0.8.0
 homepage: https://github.com/caiopo/flutter-installer-info
 repository: https://github.com/caiopo/flutter-installer-info
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=3.10.0-0 <4.0.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^6.0.0
 
 flutter:
   plugin:

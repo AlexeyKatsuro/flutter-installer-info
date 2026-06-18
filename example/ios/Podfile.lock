@@ -2,21 +2,27 @@ PODS:
   - Flutter (1.0.0)
   - installer_info (0.0.1):
     - Flutter
+  - integration_test (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - installer_info (from `.symlinks/plugins/installer_info/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   installer_info:
     :path: ".symlinks/plugins/installer_info/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  installer_info: c9171e7c059043981ac610dc5f5e6868fdd5eb2a
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  installer_info: 3e881cee4ed72ce3a13cfc5bd2d7cb9134f11e9e
+  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
 
-PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2

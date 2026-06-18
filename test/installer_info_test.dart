@@ -1,26 +1,29 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:installer_info/installer_info.dart';
+import 'package:installer_info/installer_info_platform_interface.dart';
+import 'package:installer_info/installer_info_method_channel.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+class MockInstallerInfoPlatform
+    with MockPlatformInterfaceMixin
+    implements InstallerInfoPlatform {
+  @override
+  Future<String?> getInstallerName() => Future.value('com.android.vending');
+}
 
 void main() {
-  const MethodChannel channel = MethodChannel('com.caiopo.installer_info');
+  final InstallerInfoPlatform initialPlatform = InstallerInfoPlatform.instance;
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'getInstallerInfo') {
-        return 'com.android.vending';
-      }
-    });
-  });
-
-  tearDown(() {
-    channel.setMockMethodCallHandler(null);
+  test('$MethodChannelInstallerInfo is the default instance', () {
+    expect(initialPlatform, isInstanceOf<MethodChannelInstallerInfo>());
   });
 
   test('getInstallerInfo', () async {
-    final installerInfo = await getInstallerInfo();
+    final plugin = InstallerInfoPlugin();
+    final fakePlatform = MockInstallerInfoPlatform();
+    InstallerInfoPlatform.instance = fakePlatform;
+
+    final installerInfo = await plugin.getInstallerInfo();
     expect(installerInfo!.installerName, 'com.android.vending');
     expect(installerInfo.installer, Installer.googlePlay);
   });

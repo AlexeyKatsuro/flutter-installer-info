@@ -1,3 +1,8 @@
+## 0.8.0
+* Regenerate plugin scaffold with modern Flutter template (Gradle 8, AGP 8, Java 17)
+* Adopt federated plugin structure with `InstallerInfoPlugin` class-based API
+* Remove Android `buildscript` for monorepo compatibility
+
 ## 0.7.0
 * Add Package Installer
 * Add RuStore

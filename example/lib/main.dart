@@ -5,17 +5,20 @@ import 'package:flutter/services.dart';
 import 'package:installer_info/installer_info.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   InstallerInfo? installerInfo;
   String? error;
+  final _installerInfoPlugin = InstallerInfoPlugin();
 
   @override
   void initState() {
@@ -26,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     InstallerInfo? installerInfo;
     try {
-      installerInfo = await getInstallerInfo();
+      installerInfo = await _installerInfoPlugin.getInstallerInfo();
     } on PlatformException catch (e) {
       setState(() => error = e.message);
     }

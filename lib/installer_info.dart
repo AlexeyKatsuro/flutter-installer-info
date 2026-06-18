@@ -1,20 +1,31 @@
-import 'dart:async';
+import 'installer_info_platform_interface.dart';
 
-import 'package:flutter/services.dart';
-
-const _channel = MethodChannel('com.caiopo.installer_info');
+const _installerNames = {
+  'com.android.vending': Installer.googlePlay,
+  'com.amazon.venezia': Installer.amazonAppstore,
+  'com.huawei.appmarket': Installer.huaweiAppGallery,
+  'com.sec.android.app.samsungapps': Installer.samsungGalaxyStore,
+  'com.google.android.packageinstaller': Installer.packageInstaller,
+  'ru.vk.store': Installer.ruStore,
+  'com.apple.AppStore': Installer.appStore,
+  'com.apple.TestFlight': Installer.testFlight,
+  'com.apple.CoreSimulator': Installer.simulator,
+};
 
 /// Returns information about the method used to install your app.
 ///
 /// On Android API 29 and below, uses Context.getInstallerPackageName()
 /// On Android API 30 and above, uses PackageManager.getInstallSourceInfo()
 /// On iOS, parses Bundle.main.appStoreReceiptURL
-Future<InstallerInfo?> getInstallerInfo() async {
-  final installerName = await _channel.invokeMethod('getInstallerInfo');
-  if (installerName == null) return null;
+class InstallerInfoPlugin {
+  Future<InstallerInfo?> getInstallerInfo() async {
+    final installerName =
+        await InstallerInfoPlatform.instance.getInstallerName();
+    if (installerName == null) return null;
 
-  final installer = _installerNames[installerName];
-  return InstallerInfo(installerName, installer);
+    final installer = _installerNames[installerName];
+    return InstallerInfo(installerName, installer);
+  }
 }
 
 class InstallerInfo {
@@ -34,31 +45,13 @@ class InstallerInfo {
 
 /// Common installers
 enum Installer {
-  // Android
   googlePlay,
   amazonAppstore,
   huaweiAppGallery,
   samsungGalaxyStore,
   packageInstaller,
   ruStore,
-
-  // iOS
   appStore,
   testFlight,
   simulator,
 }
-
-const _installerNames = {
-  // Android
-  'com.android.vending': Installer.googlePlay,
-  'com.amazon.venezia': Installer.amazonAppstore,
-  'com.huawei.appmarket': Installer.huaweiAppGallery,
-  'com.sec.android.app.samsungapps': Installer.samsungGalaxyStore,
-  'com.google.android.packageinstaller': Installer.packageInstaller,
-  'ru.vk.store': Installer.ruStore,
-
-  // iOS
-  'com.apple.AppStore': Installer.appStore,
-  'com.apple.TestFlight': Installer.testFlight,
-  'com.apple.CoreSimulator': Installer.simulator,
-};

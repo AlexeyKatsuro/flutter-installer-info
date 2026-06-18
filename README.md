@@ -25,11 +25,11 @@ dependencies:
 Example
 -------
 ```dart
-final installerInfo = await getInstallerInfo();
+final installerInfo = await InstallerInfoPlugin().getInstallerInfo();
 
-print(installerInfo.installerName);
+print(installerInfo?.installerName);
 // com.android.vending
 
-print(installerInfo.installer);
+print(installerInfo?.installer);
 // Installer.googlePlay
 ```
